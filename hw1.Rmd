@@ -1,0 +1,154 @@
+---
+title: "hw1_TA"
+author: "Thandar Aung"
+date: "9/17/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Q1: Git/Github
+1. Applied for the R package 
+2. Formed the Respository and Added Dr. Zhou to the Respository
+3. Form two branch "one to the develop" " one in master" 
+4. Will attach final hw to master
+
+## Q2: Linux Shell Commands
+Q.2.1 How many person SNPS are in the data set? - 8348674
+Q.2.1 How many persons are in the data set? - 959
+
+```{bash}
+awk 'END {print NR}' /home/bios-cph511-data/hw1/merge-geno.bim
+awk 'END {print NR}' /home/bios-cph511-data/hw1/merge-geno.fam
+```
+
+Q.2.2 Which chromomsome does this data set contain ? - 21 (none in 10 chromosomes  ) thus 11 chromosome 
+Q.2.2 How many SNPS are in each chromosome
+Chromosome 1, there are 1309299 SNAP
+Chromosome 2, there are O SNAP
+Chromosome 3, there are 1215399 SNAP
+Chromosome 4, there are 0 SNAP
+Chromosome 5, there are 1090185 SNAP
+Chromosome 6, there are 0 SNAP
+Chromosome 7, there are 980944 SNAP
+Chromosome 8, there are 0 SNAP
+Chromosome 9, there are 732013 SNAP
+Chromosome 10, there are 0 SNAP
+Chromosome 11, there are 815860 SNAP
+Chromosome 12, there are 0 SNAP
+Chromosome 13, there are 602809 SNAP
+Chromosome 14, there are 0 SNAP
+Chromosome 15, there are 491208 SNAP
+Chromosome 16, there are 0 SNAP
+Chromosome 17, there are 477990 SNAP
+Chromosome 18, there are 0 SNAP
+Chromosome 19, there are 393615 SNAP
+Chromosome 20, there are 0 SNAP
+Chromosome 21, there are 239352 SNAP
+```{bash}
+awk '{print $1}' /home/bios-cph511-data/hw1/merge-geno.bim | tail -5
+awk '{if ($1==1)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==2)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==3)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==4)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==5)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==6)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==7)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==8)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==9)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==10)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==11)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==12)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==13)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==14)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==15)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==16)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==17)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==18)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==19)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==20)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+awk '{if ($1==21)print}' /home/bios-cph511-data/hw1/merge-geno.bim| wc -l
+```
+
+Q.2.3 MAP4 on chromosome 3 - How many SNAPS are located on the MAP4 gene - 1338 SNAPS
+```{bash}
+awk '{if ($1==3 && $4>=47892180 && $4<=48230769)print}' /home/bios-cph511-data/hw1/merge-geno.bim | sort| wc -l
+```
+
+Q.2.4 Reformat to Mendel’s SNAP
+
+```{bash}
+awk -v OFS=, '{print $2, $1, $4} NR ==5{exit}' /home/bios-cph511-data/hw1/merge-geno.bim
+```
+
+```{bash}
+awk -v OFS=, '{gsub("T2DG", ""); if ($5==1) $5="M"; if ($5==2) $5="F" ; print $1 $2 $3 $4 $5, ""} NR==5{exit}' /home/bios-cph511-data/hw1/merge-geno.fam
+```
+
+Q.3.1 # mean etc. 
+
+
+```{bash}
+cat runSim.R
+```
+
+```{bash}
+Rscript runSim.R n=100 dist=\"gaussian\" reps=50 seed=280
+```
+
+Q.3.2 ## Expand and Modify autoSim.R with nVals = seq(100, 500, by=100) and distribuation distTypes = c("gaussian", "t1", "t5"). Rep =50 and seed =280
+
+
+```{bash}
+cat autoSim.R
+```
+
+
+```{bash}
+Rscript autoSim.R
+```
+
+
+Q.3.3
+
+
+```{r}
+nVals <- seq(100, 500, by=100)
+distTypes <- c("gaussian", "t1" , "t5")
+
+msePrimeAvg <- matrix (0, nrow = length (nVals) , ncol = length (distTypes))
+colnames (msePrimeAvg) <- distTypes
+mseSamplAvg <- matrix (0, nrow = length (nVals) , ncol = length (distTypes))
+colnames (mseSamplAvg) <- distTypes
+
+c = 0 # column
+for (dist in distTypes) {
+  c = c + 1
+  r = 0 # row
+  for (n in nVals) {
+    r = r +1
+    oFile = paste("n", n, "dist", dist, ".txt", sep="")
+    oData = read.table (oFile)
+    msePrimeAvg [r,c] = oData [1,2]
+    mseSamplAvg [r,c] = oData [2,2]
+  }
+}
+
+
+library("tidyverse")
+msePrimeAvgDf <- as.tibble(msePrimeAvg) %>% mutate (n = nVals)
+mseSamplAvgDf <- as.tibble(mseSamplAvg) %>% mutate (n = nVals)
+res <-
+  bind_rows("PrimeAvg" = msePrimeAvgDf, "SamplAvg" = mseSamplAvgDf, .id = "Method") %>%
+  select(n, Method, gaussian, t5, t1) %>%
+  arrange(n, by_group = FALSE)
+
+```
+
+
+```{r}
+knitr::kable(res, digits = 3)
+```
+
